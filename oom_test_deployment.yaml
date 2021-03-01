@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  memory-demo-2
+  namespace: default
+  labels:
+    app:  memory-demo-2
+spec:
+  selector:
+    matchLabels:
+      app: memory-demo-2
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  memory-demo-2
+    spec:
+      containers:
+      - name:  memory-demo-2-ctr
+        image:  polinux/stress
+        command: ["stress"]
+        args: ["--vm", "1", "--vm-bytes", "250M", "--vm-hang", "1"]
+        resources:
+          requests:
+            memory: "50Mi"
+          limits:
+            memory: "100Mi"
+      restartPolicy: Always

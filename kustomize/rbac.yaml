@@ -1,0 +1,33 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sre
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- nonResourceURLs:
+  - '*'
+  verbs:
+  - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sre
+roleRef:
+  apiGroup: ""
+  kind: ClusterRole
+  name: sre
+subjects:
+- apiGroup: ""
+  kind: ServiceAccount
+  name: sre
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sre

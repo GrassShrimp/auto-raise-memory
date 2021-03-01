@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: auto-raise-memory
+build:
+  artifacts:
+  - image: asia.gcr.io/pl-web-219210/auto-raise-memory
+    kaniko: {}
+  googleCloudBuild:
+    projectId: pl-web-219210
+deploy:
+  kustomize:
+    paths:
+    - kustomize

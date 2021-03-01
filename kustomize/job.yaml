@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: auto-raise-memory
+  labels:
+    app: auto-raise-memory
+spec:
+  template:
+    metadata:
+      name: auto-raise-memory
+      labels:
+        app: auto-raise-memory
+    spec:
+      serviceAccountName: sre
+      containers:
+      - name: auto-raise-memory
+        image: asia.gcr.io/pl-web-219210/auto-raise-memory:latest
+      restartPolicy: Never
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: gcr-json-key
